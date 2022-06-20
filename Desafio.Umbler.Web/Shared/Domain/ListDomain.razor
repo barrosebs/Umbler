@@ -1,0 +1,59 @@
+﻿
+@inject IDomainService domainService
+
+<h3>GetDomain:: Retornar dados do Domain</h3>
+<br />
+<br />
+<EditForm Model="model">
+    <InputText @ref="inputText" class="form-control" @bind-Value="model" />
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Name servers</th>
+            <th>IP do registro A</th>
+            <th>Empresa que está hospedado</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            @if (domain != null)
+            {
+                <td>@domain.Name</td>
+                <td>@domain.Ip</td>
+                <td>@domain.HostedAt</td>
+            }
+            else
+            {
+                <td>
+                    Buscar dados do Domain
+                </td>
+            }
+        </tr>
+    </tbody>
+</table>
+</EditForm>
+<br />
+<button class="btn btn-success" @onclick="HandlerClick">
+    <i class="fa fa-search"></i> Buscar
+</button>
+<br />
+
+
+
+
+@code {
+    string model = "";
+    InputText inputText;
+    private ViewModelDomain domain { get; set; } = null;
+
+    private async void HandlerClick()
+    {
+        if (inputText.Element.HasValue != null)
+        {
+            domain = await domainService.GetDomain(model);
+
+        }
+
+    }
+}
