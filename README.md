@@ -94,3 +94,14 @@ Se você rodar o projeto e testar um domínio, verá que ele já está funcionan
 # Modificações:
 
 - DESCREVA AQUI O OBJETIVO DAS MODIFICAÇÕES...
+Criado um fake na Umbler "developer.io" para consulta
+Instalação e configuração do mysql. Inicialmente havia tentado com DOCKER, mais nao rolou então partir para instalação na máquina física.
+Configurado o ambiente:
+O projeto foi separado em camadas. Também foi criado mais dois projetos um LIbrary para colocar os Models e assim ser compartilhado entre o front e back.
+O front em Razor foi criado um novo projeto para atender.
+Com essas mudanças atender um dos princípios do SOLID o de responsabilidade única. Separando em camadas tando na estrutura de projeto quanto na estrutura de camadas de responsabilidade. 
+Pasta Data contem agora o contexto.
+Pasta Interface os contratos 
+Pasta Repository para se comunicar com banco chamnado o DB (context)
+Não consegui realizar os testes unitários, é um assunto que ainda não domino e iria precisar de mais tempo para fazer.
+
