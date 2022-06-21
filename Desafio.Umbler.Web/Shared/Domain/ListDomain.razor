@@ -1,12 +1,47 @@
-﻿
-@inject IDomainService domainService
+﻿@inject IDomainService domainService
 
 <h3>GetDomain:: Retornar dados do Domain</h3>
 <br />
-<br />
+
 <EditForm Model="model">
-    <InputText @ref="inputText" class="form-control" @bind-Value="model" />
-    <table class="table">
+    <InputText @ref="inputText" class="form-control-sm" @bind-Value="model" />
+</EditForm>
+<br />
+@*<input type="text" class="form-control-sm" @bind="inputText"/>*@
+<button class="btn btn-success" @onclick="HandlerClick">
+    <i class="fa fa-search"></i> Buscar
+</button>
+<br />
+@if (mensagem != "")
+{
+
+    <Alert Mensagem="@mensagem"></Alert>
+    mensagem = "";
+
+}
+
+
+@code {
+    string mensagem = "";
+    string model = "";
+    InputText inputText;
+    public ViewModelDomain domain { get; set; } = null;
+
+    private async void HandlerClick()
+    {
+        if (inputText.Value != "")
+        {
+            domain = await domainService.GetDomain(inputText.Value.ToString());
+        }
+        else
+        {
+            mensagem = "O campo não ser vazio";
+        }
+    }
+}
+
+<br />
+<table class="table">
     <thead>
         <tr>
             <th>Name servers</th>
@@ -32,28 +67,3 @@
         </tr>
     </tbody>
 </table>
-</EditForm>
-<br />
-<button class="btn btn-success" @onclick="HandlerClick">
-    <i class="fa fa-search"></i> Buscar
-</button>
-<br />
-
-
-
-
-@code {
-    string model = "";
-    InputText inputText;
-    private ViewModelDomain domain { get; set; } = null;
-
-    private async void HandlerClick()
-    {
-        if (inputText.Element.HasValue != null)
-        {
-            domain = await domainService.GetDomain(model);
-
-        }
-
-    }
-}
